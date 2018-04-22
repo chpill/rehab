@@ -1,0 +1,13 @@
+FROM openjdk:8
+
+ENV DATOMIC_VERSION 0.9.5697
+
+ADD https://my.datomic.com/downloads/free/${DATOMIC_VERSION} /datomic.zip
+
+RUN unzip /datomic.zip
+
+RUN chown ${USER}:${USER} datomic-free-${DATOMIC_VERSION}
+
+WORKDIR datomic-free-${DATOMIC_VERSION}
+
+USER ${USER}

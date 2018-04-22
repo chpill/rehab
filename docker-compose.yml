@@ -1,0 +1,18 @@
+version: '2.2'
+
+services:
+  datomic-transactor:
+    build:
+      dockerfile: Dockerfile.datomic-transactor
+      context: .
+      args: &user_args
+        USER: "${USER}"
+    volumes:
+      - "./dev-transactor.properties:/dev-transactor.properties"
+      - "./datomic-volumes/data:/data"
+      - "./datomic-volumes/log:/log"
+    ports:
+      - "4334:4334"
+      - "4335:4335"
+      - "4336:4336"
+    command: "bin/transactor /dev-transactor.properties"
